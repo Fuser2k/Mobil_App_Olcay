@@ -7,11 +7,14 @@ import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
 class MainActivity : AppCompatActivity() {
-    private val credentialsManager = CredentialsManager() // Doğru Tanımlama
+
+    private val credentialsManager = CredentialsManager()
 
     private val emailFile: TextInputEditText
         get() = findViewById(R.id.emailEditText)
@@ -25,6 +28,10 @@ class MainActivity : AppCompatActivity() {
         get() = findViewById(R.id.nextButton)
     private val rememberCheckBox: CheckBox
         get() = findViewById(R.id.rememberMeCheckBox)
+    private val toggleFragmentButton: Button
+        get() = findViewById(R.id.toggleFragmentButton)
+
+    private var isFragmentAVisible = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +40,17 @@ class MainActivity : AppCompatActivity() {
         nextButton.setOnClickListener { nextButtonClick() }
         val loginButton = findViewById<TextView>(R.id.registernow)
         loginButton.setOnClickListener {
-            val goToReg = Intent(this, MainActivity2::class.java)
-            startActivity(goToReg)
+            navigateToRegistration()
+        }
+
+        // İlk fragment olarak FragmentA'yı yükle
+        supportFragmentManager.commit {
+            replace(R.id.fragmentContainer, FragmentA())
+        }
+
+        // Toggle button için tıklama işlemi
+        toggleFragmentButton.setOnClickListener {
+            toggleFragment()
         }
     }
 
@@ -46,6 +62,24 @@ class MainActivity : AppCompatActivity() {
         } else {
             showToast("Invalid credentials!")
         }
+    }
+
+    private fun toggleFragment() {
+        val fragment: Fragment = if (isFragmentAVisible) {
+            FragmentB()
+        } else {
+            FragmentA()
+        }
+        isFragmentAVisible = !isFragmentAVisible
+
+        supportFragmentManager.commit {
+            replace(R.id.fragmentContainer, fragment)
+        }
+    }
+
+    private fun navigateToRegistration() {
+        val intent = Intent(this, MainActivity2::class.java)
+        startActivity(intent)
     }
 
     private fun setError(layout: TextInputLayout, message: String) {

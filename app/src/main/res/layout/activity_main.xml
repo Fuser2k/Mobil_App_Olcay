@@ -140,7 +140,26 @@
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/registerTextView"
         app:layout_constraintTop_toBottomOf="@+id/nextButton"/>
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/nextButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/toggleFragmentButton"
+        android:layout_marginTop="16dp" />
 
+    <!-- Toggle Button -->
+    <Button
+        android:id="@+id/toggleFragmentButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Switch Fragment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
 
 
 
