@@ -44,6 +44,7 @@ dependencies {
     implementation(libs.androidx.activity) // Activity Kütüphanesi
     implementation(libs.androidx.constraintlayout) // ConstraintLayout
     testImplementation(libs.junit) // JUnit
+    implementation("androidx.fragment:fragment-ktx:1.6.1")
     androidTestImplementation(libs.androidx.junit) // Android JUnit
     androidTestImplementation(libs.androidx.espresso.core) // Espresso
 }
